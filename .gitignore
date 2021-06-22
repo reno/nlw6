@@ -105,3 +105,6 @@ dist
 
 # Sqlite files
 *.sqlite
+
+# OSX system files
+*.DS_Store
