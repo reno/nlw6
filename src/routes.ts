@@ -1,53 +1,45 @@
 import { Router } from 'express';
-import { CreateUserController } from './controllers/CreateUserController';
-import { CreateTagController } from './controllers/CreateTagController';
 import { ensureAdmin } from './middlewares/ensureAdmin';
-import { AuthenticateUserController } from './controllers/AuthenticateUserController';
-import { CreateComplimentController } from './controllers/CreateComplimentController';
 import { ensureAuthenticated } from './middlewares/ensureAuthenticated';
-import { ListSentComplimentsController } from './controllers/ListSentComplimentsController';
-import { ListReceivedComplimentsController } from './controllers/ListReceivedComplimentsController';
-import { ListTagsController } from './controllers/ListTagsController';
-import { ListUsersController } from './controllers/ListUsersController';
+import { ComplimentController } from './controllers/ComplimentController';
+import { IndexController } from './controllers/IndexController';
+import { TagController } from './controllers/TagController';
+import { UserController } from './controllers/UserController';
 
 const router = Router();
 
-const createUserController = new CreateUserController();
-const createTagController = new CreateTagController();
-const authenticateUserController = new AuthenticateUserController();
-const createComplimentController = new CreateComplimentController();
-const listSentComplimentsController = new ListSentComplimentsController();
-const listReceivedComplimentsController = new ListReceivedComplimentsController();
-const listTagsController = new ListTagsController();
-const listUsersController = new ListUsersController();
+const complimentController = new ComplimentController();
+const indexController = new IndexController();
+const tagController = new TagController();
+const userController = new UserController();
 
-router.post(
-  '/compliments',
-  ensureAuthenticated,
-  createComplimentController.handle
-);
+
+router.get('/', indexController.handle);
+
+router.post('/compliments', ensureAuthenticated, complimentController.create);
 router.get(
   '/compliments/sent',
   ensureAuthenticated,
-  listSentComplimentsController.handle
+  complimentController.list_sent
 );
 router.get(
   '/compliments/received',
   ensureAuthenticated,
-  listReceivedComplimentsController.handle
+  complimentController.list_received
 );
-router.post('/login', authenticateUserController.handle);
-router.get('/tags', ensureAuthenticated, listTagsController.handle);
+
+router.get('/tags', ensureAuthenticated, tagController.list);
 router.post(
   '/tags',
   ensureAuthenticated,
   ensureAdmin,
-  createTagController.handle
+  tagController.create
 );
-router.get('/users', ensureAuthenticated, listUsersController.handle);
-router.post('/users', createUserController.handle);
+router.get('/tags/:id', ensureAuthenticated, tagController.detail);
 
-
-
+router.post('/login', userController.authenticate);
+router.get('/users', ensureAuthenticated, userController.list);
+router.post('/users', userController.create);
+router.get('/users/:id', ensureAuthenticated, userController.detail);
 
 export { router };

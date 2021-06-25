@@ -18,7 +18,7 @@ export function ensureAuthenticated(
   try {
     const { sub } = verify(
       token,
-      '4f93ac9d10cb751b8c9c646bc9dbccb9'
+      process.env.SECRET_KEY
     ) as IPayload;
     request.user_id = sub;
     return next();

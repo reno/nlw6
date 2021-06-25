@@ -1,14 +1,14 @@
-import { Exclude } from "class-transformer";
+import { Exclude, Expose } from 'class-transformer';
 import {
   Entity,
   PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { v4 as uuid } from "uuid";
+} from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
-@Entity("users")
+@Entity('users')
 class User {
   @PrimaryColumn()
   readonly id: string;
@@ -26,11 +26,18 @@ class User {
   @Column()
   admin: boolean;
 
+  @Exclude()
   @CreateDateColumn()
   created_at: Date;
 
+  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
+  
+  @Expose({ name: 'url' })
+  url(): string {
+    return `${process.env.BASE_URL}/users/${this.id}`;
+  }
 
   constructor() {
     if (!this.id) {

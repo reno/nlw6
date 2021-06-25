@@ -1,16 +1,13 @@
+import 'express-async-errors';
 import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
-import 'express-async-errors';
 
-import { router } from './routes';
 import './database';
+import { router } from './routes';
 
 const app = express();
-
 app.use(express.json());
-
 app.use(router);
-
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof Error) {
@@ -24,8 +21,8 @@ app.use(
     });
   }
 );
-
-const port = 3000;
+const base_url = process.env.BASE_URL;
+const port = process.env.PORT;
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`)
+  console.log(`Server listening at ${base_url}`)
 });
