@@ -1,6 +1,6 @@
 # NLW Valoriza
 
-Uma aplicação desenvolvida na trilha Node.js da Next Level Week #6, pela [Rocketseat](https://rocketseat.com.br/).
+Uma API REST desenvolvida na trilha Node.js da Next Level Week #6, pela [Rocketseat](https://rocketseat.com.br/).
 
 ## ⚙️  Tecnologias
 
