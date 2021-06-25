@@ -10,6 +10,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Typescript](https://www.typescriptlang.org/)
 - [Express](https://expressjs.com/pt-br/)
 - [TypeORM](typeorm.io)
+- [JWT](https://jwt.io/)
 
 ## 🚀 Uso
 
